@@ -1,6 +1,6 @@
 const {stdin, stdout} = process;
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
 const output = fs.createWriteStream(path.join(__dirname, 'text.txt'));
 
 stdout.write('Add your message:\n');
