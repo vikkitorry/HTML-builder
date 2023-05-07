@@ -6,9 +6,10 @@ const stylesSource = path.join(__dirname, 'styles');
 const stylesDest = path.join(__dirname, 'project-dist', 'style.css');
 const assetsSource = path.join(__dirname, 'assets');
 const assetsDest = path.join(__dirname, 'project-dist', 'assets');
+const htmlSource = path.join(__dirname, 'template.html');
+const htmlDest = path.join(__dirname, 'project-dist', 'index.html');
 
 const componentsPath = path.join(__dirname, 'components');
-const htmlDest = path.join(__dirname, 'project-dist', 'index.html');
 
 const addDir = async (dest) => {
   await fsP.mkdir(dest, {recursive: true});
@@ -52,14 +53,14 @@ const copyStyles = async () => {
 };
 
 const copyHtml = async () => {
-  fs.createReadStream(path.join(__dirname, 'template.html'))
+  fs.createReadStream(htmlSource)
     .on('data', (data) => {
       fs.createWriteStream(htmlDest).write(data);
     });
 };
 
 const addComponents = async () => {
-  const streamRead = fs.createReadStream(path.join(__dirname, 'template.html'));
+  const streamRead = fs.createReadStream(htmlSource);
   streamRead.on('data', (data) => {
     let htmlData = data.toString();
     fs.readdir(path.join(componentsPath), {withFileTypes: true}, (err, files) => {
